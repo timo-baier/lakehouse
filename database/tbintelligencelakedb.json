@@ -1,0 +1,25 @@
+{
+	"name": "tbintelligencelakedb",
+	"properties": {
+		"Name": "tbintelligencelakedb",
+		"EntityType": "DATABASE",
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"Properties": {
+			"IsSyMSCDMDatabase": true
+		},
+		"Source": {
+			"Provider": "ADLS",
+			"Location": "abfss://lakehouse@tbintelligence.dfs.core.windows.net/tbintelligencelakedb",
+			"Properties": {
+				"FormatType": "parquet",
+				"LinkedServiceName": "tbintelligencelakehouse-WorkspaceDefaultStorage"
+			}
+		},
+		"PublishStatus": "PUBLISHED",
+		"ObjectVersion": 1,
+		"ObjectId": "391d5421-7de6-412e-8509-9fbb60af2274"
+	},
+	"type": "DATABASE"
+}
