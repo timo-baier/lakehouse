@@ -1,0 +1,85 @@
+{
+	"name": "api_passantenzaehlung_schoenbornstrasse",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "passantenzaehlung_schoenbornstrasse",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"nhits": {
+					"type": "integer"
+				},
+				"parameters": {
+					"type": "object",
+					"properties": {
+						"dataset": {
+							"type": "string"
+						},
+						"rows": {
+							"type": "integer"
+						},
+						"start": {
+							"type": "integer"
+						},
+						"format": {
+							"type": "string"
+						},
+						"timezone": {
+							"type": "string"
+						}
+					}
+				},
+				"records": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"datasetid": {
+								"type": "string"
+							},
+							"recordid": {
+								"type": "string"
+							},
+							"fields": {
+								"type": "object",
+								"properties": {
+									"unverified": {
+										"type": "integer"
+									},
+									"details": {
+										"type": "string"
+									},
+									"timestamp": {
+										"type": "string"
+									},
+									"weather_condition": {
+										"type": "string"
+									},
+									"temperature": {
+										"type": "number"
+									},
+									"pedestrians_count": {
+										"type": "integer"
+									}
+								}
+							},
+							"record_timestamp": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

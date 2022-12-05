@@ -1,0 +1,190 @@
+{
+	"name": "Pipeline 1",
+	"properties": {
+		"activities": [
+			{
+				"name": "api_adls_pedestrians",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['nhits']"
+								},
+								"sink": {
+									"name": "nhits"
+								}
+							},
+							{
+								"source": {
+									"path": "$['parameters']['dataset']"
+								},
+								"sink": {
+									"name": "dataset"
+								}
+							},
+							{
+								"source": {
+									"path": "$['parameters']['rows']"
+								},
+								"sink": {
+									"name": "rows"
+								}
+							},
+							{
+								"source": {
+									"path": "$['parameters']['start']"
+								},
+								"sink": {
+									"name": "start"
+								}
+							},
+							{
+								"source": {
+									"path": "$['parameters']['format']"
+								},
+								"sink": {
+									"name": "format"
+								}
+							},
+							{
+								"source": {
+									"path": "$['parameters']['timezone']"
+								},
+								"sink": {
+									"name": "timezone"
+								}
+							},
+							{
+								"source": {
+									"path": "['datasetid']"
+								},
+								"sink": {
+									"name": "datasetid"
+								}
+							},
+							{
+								"source": {
+									"path": "['recordid']"
+								},
+								"sink": {
+									"name": "recordid"
+								}
+							},
+							{
+								"source": {
+									"path": "['fields']['unverified']"
+								},
+								"sink": {
+									"name": "unverified"
+								}
+							},
+							{
+								"source": {
+									"path": "['fields']['details']"
+								},
+								"sink": {
+									"name": "details"
+								}
+							},
+							{
+								"source": {
+									"path": "['fields']['timestamp']"
+								},
+								"sink": {
+									"name": "timestamp"
+								}
+							},
+							{
+								"source": {
+									"path": "['fields']['weather_condition']"
+								},
+								"sink": {
+									"name": "weather_condition"
+								}
+							},
+							{
+								"source": {
+									"path": "['fields']['temperature']"
+								},
+								"sink": {
+									"name": "temperature"
+								}
+							},
+							{
+								"source": {
+									"path": "['fields']['pedestrians_count']"
+								},
+								"sink": {
+									"name": "pedestrians_count"
+								}
+							},
+							{
+								"source": {
+									"path": "['record_timestamp']"
+								},
+								"sink": {
+									"name": "record_timestamp"
+								}
+							}
+						],
+						"collectionReference": "$['records']"
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "api_passantenzaehlung_schoenbornstrasse",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "adls",
+						"type": "DatasetReference",
+						"parameters": {
+							"path": "pplcounter",
+							"file": {
+								"value": "@concat(formatDateTime(utcNow(),'yyyyMMdd'),'_pedestrians.parquet')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2022-12-01T16:55:52Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}
